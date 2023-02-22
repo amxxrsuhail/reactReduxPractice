@@ -1,27 +1,29 @@
-import pkg from "@reduxjs/toolkit";
-const { configureStore } = pkg;
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const counterReducer = (state = { counter: 0 }, action) => {
+// Define your reducers
+const counterReducer = (state = 0, action) => {
   switch (action.type) {
-    case "increment":
-      return { counter: state.counter + 1 };
-    case "decrement":
-      return { counter: state.counter - 1 };
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
     default:
       return state;
   }
 };
 
-const store = configureStore(counterReducer);
+const rootReducer = combineReducers({
+  counter: counterReducer,
+});
 
-const counterSubscriber = () => {
-  const latestState = store.getState();
-  console.log(latestState);
-};
+// Create the store
+const store = configureStore({
+  reducer: rootReducer,
+});
 
-store.subscribe(counterSubscriber);
-
-store.dispatch({ type: "increment" });
-store.dispatch({ type: "decrement" });
-
+// Export the store and dispatch/useSelector hooks
 export default store;
+export const useAppDispatch = () => useDispatch();
+export const useAppSelector = useSelector;
