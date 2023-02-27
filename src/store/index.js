@@ -3,16 +3,18 @@ import { combineReducers } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Define your reducers
-const counterReducer = (state = 0, action) => {
+const counterReducer = (state = { count: 0, showCounter: true }, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return state + 1;
+      return { ...state, count: state.count + 1 };
     case 'DECREMENT':
-      return state - 1;
+      return { ...state, count: state.count - 1 };
     case 'INCREASE':
-      return state + action.amount;
+      return { ...state, count: state.count + action.payload };
     case 'DECREASE':
-      return state - action.amount;
+      return { ...state, count: state.count - action.payload };
+    case 'TOGGLE':
+      return { ...state, showCounter: action.showCounter };
     default:
       return state;
   }
