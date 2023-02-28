@@ -16,6 +16,15 @@ const counterSlice = createSlice({
   }
 })
 
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: { isAuthenticated: false },
+  reducers: {
+    login(state) { state.isAuthenticated = true },
+    logout(state) { state.isAuthenticated = false }
+  }
+})
+
 // method when redux toolkit isnt used
 // const counterReducer = (state = { count: 0, showCounter: true }, action) => {
 //   switch (action.type) {
@@ -40,11 +49,15 @@ const counterSlice = createSlice({
 
 // Create the store
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer
+  }
 });
 
 // Export the store and dispatch/useSelector hooks
 export default store;
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 export const useAppDispatch = () => useDispatch();
 export const useAppSelector = useSelector;
