@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // import { combineReducers } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
+// method using createslice from redux toolkit
 const counterSlice = createSlice({
   name: "counter",
   initialState: { count: 0, showCounter: true },
@@ -15,7 +16,7 @@ const counterSlice = createSlice({
   }
 })
 
-// Define your reducers 
+// method when redux toolkit isnt used
 // const counterReducer = (state = { count: 0, showCounter: true }, action) => {
 //   switch (action.type) {
 //     case 'INCREMENT':
