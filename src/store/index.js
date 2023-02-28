@@ -1,29 +1,34 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-// import { combineReducers } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-// method using createslice from redux toolkit
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: { count: 0, showCounter: true },
-  reducers: {
-    increment(state) { state.count++; },
-    decrement(state) { state.count--; },
-    increase(state, action) { state.count = state.count + action.payload; },
-    decrease(state, action) { state.count = state.count - action.payload; },
-    toggle(state) { state.showCounter = !state.showCounter }
-  }
-})
+import authReducer  from './authSlice';
+import countReducer from './counterSlice'
+// import { combineReducers } from 'redux';
 
-const authSlice = createSlice({
-  name: "authentication",
-  initialState: { isAuthenticated: false },
-  reducers: {
-    login(state) { state.isAuthenticated = true },
-    logout(state) { state.isAuthenticated = false }
+
+// Create the store
+const store = configureStore({
+  reducer: {
+    counter: countReducer,
+    auth: authReducer
   }
-})
+});
+
+// Export the store and dispatch/useSelector hooks
+export default store;
+export const useAppDispatch = () => useDispatch();
+export const useAppSelector = useSelector;
+
+
+
+
+
+
+
+
+
+
+
 
 // method when redux toolkit isnt used
 // const counterReducer = (state = { count: 0, showCounter: true }, action) => {
@@ -46,18 +51,3 @@ const authSlice = createSlice({
 // const rootReducer = combineReducers({
 //   counter: counterReducer,
 // });
-
-// Create the store
-const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer,
-    auth: authSlice.reducer
-  }
-});
-
-// Export the store and dispatch/useSelector hooks
-export default store;
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
-export const useAppDispatch = () => useDispatch();
-export const useAppSelector = useSelector;
